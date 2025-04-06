@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос мебельных предпочтений</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Мебельная компания "Уютный Дом"</h1>
+            <p>Помогаем создать комфорт в вашем доме</p>
+        </header>
+
+        <div class="main-content">
+            <article>
+                <h2>Опрос предпочтений</h2>
+                <form id="surveyForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" pattern="[\+]\d{1}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" placeholder="+7 (123) 456-78-90">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthdate">Дата рождения:</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Предпочитаемый стиль мебели:</label>
+                        <select name="style" required>
+                            <option value="">Выберите стиль</option>
+                            <option value="modern">Современный</option>
+                            <option value="classic">Классический</option>
+                            <option value="loft">Лофт</option>
+                            <option value="scandinavian">Скандинавский</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Любимые цвета мебели:</label>
+                        <input type="color" id="color1" name="color1" value="#ffffff">
+                        <input type="color" id="color2" name="color2" value="#000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Типы мебели, которые вас интересуют:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="furniture[]" value="sofa">Диваны</label>
+                            <label><input type="checkbox" name="furniture[]" value="table">Столы</label>
+                            <label><input type="checkbox" name="furniture[]" value="chair">Стулья</label>
+                            <label><input type="checkbox" name="furniture[]" value="bed">Кровати</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Как часто вы покупаете мебель?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="frequency" value="yearly" required>Раз в год</label>
+                            <label><input type="radio" name="frequency" value="2-3years">Раз в 2-3 года</label>
+                            <label><input type="radio" name="frequency" value="rarely">Редко</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Ваши пожелания:</label>
+                        <textarea id="comments" name="comments" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn submit-btn">Отправить</button>
+                        <button type="reset" class="btn reset-btn">Очистить</button>
+                        <button type="button" class="btn view-results-btn" onclick="viewResults()">Посмотреть результаты</button>
+                    </div>
+                </form>
+            </article>
+
+            <nav>
+                <h3>Категории мебели</h3>
+                <ul>
+                    <li><a href="#">Гостиная</a></li>
+                    <li><a href="#">Спальня</a></li>
+                    <li><a href="#">Кухня</a></li>
+                    <li><a href="#">Детская</a></li>
+                    <li><a href="#">Офис</a></li>
+                </ul>
+            </nav>
+
+            <aside>
+                <h3>Акции</h3>
+                <p>Скидка 20% на все диваны до конца месяца!</p>
+                <h3>Новинки</h3>
+                <p>Новая коллекция мебели в стиле лофт уже в продаже.</p>
+            </aside>
+        </div>
+
+        <footer>
+            <p>© 2023 Мебельная компания "Уютный Дом"</p>
+            <p>Контактный телефон: +7 (123) 456-78-90</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

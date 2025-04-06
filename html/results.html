@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты опроса</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        // Загрузка данных при открытии страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем текущие данные из sessionStorage
+            const currentResponse = JSON.parse(sessionStorage.getItem('currentResponse'));
+            const responses = JSON.parse(localStorage.getItem('furnitureSurveyResponses')) || [];
+            
+            // Отображаем текущие данные
+            if (currentResponse) {
+                const currentResponseBody = document.getElementById('currentResponseBody');
+                currentResponseBody.innerHTML = '';
+                
+                for (const [key, value] of Object.entries(currentResponse)) {
+                    if (key === 'timestamp') continue;
+                    
+                    const row = document.createElement('tr');
+                    
+                    const paramCell = document.createElement('td');
+                    paramCell.textContent = getFieldName(key);
+                    row.appendChild(paramCell);
+                    
+                    const valueCell = document.createElement('td');
+                    
+                    if (key === 'color1' || key === 'color2') {
+                        const colorBox = document.createElement('div');
+                        colorBox.style.display = 'inline-block';
+                        colorBox.style.width = '20px';
+                        colorBox.style.height = '20px';
+                        colorBox.style.backgroundColor = value;
+                        colorBox.style.border = '1px solid #000';
+                        colorBox.style.marginRight = '10px';
+                        valueCell.appendChild(colorBox);
+                        valueCell.appendChild(document.createTextNode(value));
+                    } else if (Array.isArray(value)) {
+                        valueCell.textContent = value.join(', ');
+                    } else {
+                        valueCell.textContent = value;
+                    }
+                    
+                    row.appendChild(valueCell);
+                    currentResponseBody.appendChild(row);
+                }
+            }
+            
+            // Отображаем предыдущие ответы
+            const previousResponsesList = document.getElementById('previousResponsesList');
+            previousResponsesList.innerHTML = '';
+            
+            // Исключаем текущий ответ из списка предыдущих
+            const previousResponses = responses.filter(response => 
+                !currentResponse || response.timestamp !== currentResponse.timestamp
+            );
+            
+            previousResponses.forEach((response, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${response.name} (${new Date(response.timestamp).toLocaleDateString()}) - ${response.style} стиль`;
+                previousResponsesList.appendChild(li);
+            });
+        });
+        
+        // Вспомогательная функция для получения читаемых имен полей
+        function getFieldName(key) {
+            const names = {
+                name: 'Имя',
+                email: 'Email',
+                phone: 'Телефон',
+                birthdate: 'Дата рождения',
+                style: 'Предпочитаемый стиль',
+                color1: 'Цвет 1',
+                color2: 'Цвет 2',
+                furniture: 'Интересующие типы мебели',
+                frequency: 'Частота покупок',
+                comments: 'Пожелания'
+            };
+            
+            return names[key] || key;
+        }
+        
+        // Функции для модального окна
+        function closeModal() {
+        // Проверяем, было ли окно открыто через window.open()
+        if (window.opener) {
+            window.close();
+        } else {
+
+            window.location.href = 'index.html';
+        }
+    }
+    
+    function goBack() {
+        if (window.opener) {
+
+            window.close();
+        } else {
+
+            window.location.href = '../index.html';
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="modal" id="resultsModal" style="display: block;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Результаты опроса</h2>
+            
+            <div id="currentResponse">
+                <h3>Ваши ответы:</h3>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Параметр</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody id="currentResponseBody">
+                        <!-- Данные будут добавлены через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="previous-responses">
+                <h3>Предыдущие ответы:</h3>
+                <ol id="previousResponsesList">
+                    <!-- Данные будут добавлены через JavaScript -->
+                </ol>
+            </div>
+            
+            <div class="form-buttons">
+                <button class="btn" onclick="closeModal()">Закрыть окно</button>
+                <button class="btn" onclick="goBack()">Вернуться</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
