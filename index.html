@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учет посетителей поликлиники</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Учет посетителей поликлиники</h1>
+    
+    <div class="container">
+        <div class="form-section">
+            <h2>Форма ввода данных</h2>
+            <form id="visitorForm">
+                <div>
+                    <label for="fullName">ФИО:</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div>
+                    <label for="address">Адрес:</label>
+                    <input type="text" id="address" required>
+                </div>
+                <div>
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="hospitalized">
+                    <label for="hospitalized">Оказана стационарная помощь</label>
+                </div>
+                <div>
+                    <label for="visitorSelect">Выберите посетителя:</label>
+                    <select id="visitorSelect">
+                        <option value="">-- Новый посетитель --</option>
+                    </select>
+                </div>
+                <button type="button" id="addBtn">Добавить</button>
+                <button type="button" id="clearBtn">Очистить</button>
+                <button type="button" id="deleteBtn">Удалить</button>
+                <button type="button" id="updateBtn">Обновить</button>
+            </form>
+
+            <div class="add-property-section">
+                <h3>Добавить новое свойство</h3>
+                <div>
+                    <label for="newPropertyName">Название свойства:</label>
+                    <input type="text" id="newPropertyName">
+                </div>
+                <div>
+                    <label for="newPropertyType">Тип свойства:</label>
+                    <select id="newPropertyType">
+                        <option value="text">Текст</option>
+                        <option value="number">Число</option>
+                        <option value="checkbox">Флажок</option>
+                        <option value="select">Выпадающий список</option>
+                    </select>
+                </div>
+                <div id="selectOptionsContainer" class="hidden">
+                    <label for="selectOptions">Варианты (через запятую):</label>
+                    <input type="text" id="selectOptions">
+                </div>
+                <button type="button" id="addPropertyBtn">Добавить свойство</button>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <h2>Список посетителей</h2>
+            <div class="search-section">
+                <label for="searchInput">Поиск по ФИО:</label>
+                <input type="text" id="searchInput">
+                <button type="button" id="searchBtn">Найти</button>
+                <button type="button" id="showAllBtn">Показать всех</button>
+            </div>
+            <table id="visitorsTable">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Адрес</th>
+                        <th>Телефон</th>
+                        <th>Стационар</th>
+                    </tr>
+                </thead>
+                <tbody id="visitorsTableBody">
+                    <!-- Данные будут добавляться через JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

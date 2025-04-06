@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+.form-section, .table-section {
+    flex: 1;
+}
+
+form {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="tel"], select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container input {
+    width: auto;
+    margin-right: 10px;
+}
+
+button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #555;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.search-section {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.add-property-section {
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.add-property-section h3 {
+    margin-top: 0;
+}
