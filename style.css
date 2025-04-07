@@ -100,3 +100,36 @@ tr:nth-child(even) {
 .add-property-section h3 {
     margin-top: 0;
 }
+
+.history-section {
+    margin-top: 30px;
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 5px;
+}
+
+.history-container {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.history-entry {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.history-entry:last-child {
+    border-bottom: none;
+}
+
+.history-timestamp {
+    color: #666;
+    font-size: 12px;
+    margin-right: 10px;
+}

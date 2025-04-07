@@ -15,6 +15,7 @@ const PolyclinicApp = {
     loadVisitors() {
         const savedVisitors = localStorage.getItem('polyclinicVisitors');
         const savedProperties = localStorage.getItem('customProperties');
+        const savedHistory = localStorage.getItem('historyEntries');
         
         if (savedVisitors) {
             this.visitors = JSON.parse(savedVisitors);
@@ -26,12 +27,17 @@ const PolyclinicApp = {
                 this.addPropertyToForm(prop);
             });
         }
+
+        if (savedHistory) {
+            document.getElementById('historyContainer').innerHTML = JSON.parse(savedHistory);
+        }
     },
 
     // Сохранение данных в localStorage
     saveVisitors() {
         localStorage.setItem('polyclinicVisitors', JSON.stringify(this.visitors));
         localStorage.setItem('customProperties', JSON.stringify(this.customProperties));
+        localStorage.setItem('historyEntries', JSON.stringify(document.getElementById('historyContainer').innerHTML));
     },
 
     // Настройка обработчиков событий
@@ -86,6 +92,8 @@ const PolyclinicApp = {
         this.updateVisitorSelect();
         this.renderVisitorsTable();
         this.clearForm();
+        
+        this.addHistoryEntry('Добавлена новая запись', `ID: ${visitor.id}, ФИО: ${visitor.fullName}`);
         alert('Посетитель успешно добавлен');
     },
 
@@ -97,14 +105,19 @@ const PolyclinicApp = {
             return;
         }
         
+        const oldVisitor = this.visitors.find(v => v.id === select.value);
         const index = this.visitors.findIndex(v => v.id === select.value);
+        
         if (index !== -1) {
-            this.visitors[index] = this.getFormData();
-            this.visitors[index].id = select.value;
+            const newVisitor = this.getFormData();
+            newVisitor.id = select.value;
+            this.visitors[index] = newVisitor;
             this.saveVisitors();
             this.updateVisitorSelect();
             this.renderVisitorsTable();
             this.clearForm();
+            
+            this.addHistoryEntry('Обновлена запись', `ID: ${select.value}, Старое ФИО: ${oldVisitor.fullName}, Новое ФИО: ${newVisitor.fullName}`);
             alert('Данные посетителя обновлены');
         }
     },
@@ -117,12 +130,16 @@ const PolyclinicApp = {
             return;
         }
         
+        const visitor = this.visitors.find(v => v.id === select.value);
+        
         if (confirm('Вы уверены, что хотите удалить этого посетителя?')) {
             this.visitors = this.visitors.filter(v => v.id !== select.value);
             this.saveVisitors();
             this.updateVisitorSelect();
             this.renderVisitorsTable();
             this.clearForm();
+            
+            this.addHistoryEntry('Удалена запись', `ID: ${select.value}, ФИО: ${visitor.fullName}`);
             alert('Посетитель удален');
         }
     },
@@ -304,6 +321,7 @@ const PolyclinicApp = {
         document.getElementById('selectOptions').value = '';
         document.getElementById('selectOptionsContainer').classList.add('hidden');
         
+        this.addHistoryEntry('Добавлено новое свойство', `Название: ${name}, Тип: ${type}`);
         alert(`Свойство "${name}" успешно добавлено`);
     },
 
@@ -369,6 +387,29 @@ const PolyclinicApp = {
         // Вставляем перед кнопками
         const buttons = form.querySelector('button');
         form.insertBefore(div, buttons);
+    },
+
+    // Добавление записи в историю
+    addHistoryEntry(action, details) {
+        const historyContainer = document.getElementById('historyContainer');
+        const entry = document.createElement('div');
+        entry.className = 'history-entry';
+        
+        const timestamp = new Date().toLocaleTimeString();
+        entry.innerHTML = `
+            <span class="history-timestamp">[${timestamp}]</span>
+            ${action}: ${details}
+        `;
+        
+        historyContainer.prepend(entry);
+        
+        // Ограничиваем количество записей в истории
+        const entries = historyContainer.querySelectorAll('.history-entry');
+        if (entries.length > 50) {
+            historyContainer.removeChild(entries[entries.length - 1]);
+        }
+        
+        this.saveVisitors(); // Сохраняем историю
     }
 };
 
